@@ -11,6 +11,6 @@ export async function main(event, context) {
     event.response.emailSubject = "PieceNotes verification link"; // event.request.codeParameter
     event.response.emailMessage = `Thank you for signing up. ${link}`;
 
-    return success(null);
+    return success({ status: true });
   }
 }

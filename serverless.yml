@@ -115,6 +115,14 @@ functions:
       - cognitoUserPool:
           pool: ${self:custom.stage}-user-pool
           trigger: CustomMessage
+  billing:
+    handler: billing.main
+    events:
+      - http:
+          path: billing
+          method: post
+          cors: true
+          authorizer: aws_iam
 # Create our resources with separate CloudFormation templates
 resources:
   # DynamoDB
