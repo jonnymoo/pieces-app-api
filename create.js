@@ -8,7 +8,7 @@ export async function main(event, context) {
   const data = JSON.parse(event.body);
 
   const params = {
-    TableName: "pieces",
+    TableName: process.env.tableName,
     // 'Item' contains the attributes of the item to be created
     // - 'userId': user identities are federated through the Cognito Idenitity Pool
     //             we will use the identity id as the user id of the authenticated user
