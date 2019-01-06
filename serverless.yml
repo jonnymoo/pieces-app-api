@@ -1,5 +1,5 @@
 # NOTE: update this with your service name
-service: pieces-app-api
+service: pieces-app-2-api
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
@@ -16,7 +16,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: prod
+  stage: dev
   region: us-east-1
 
   # iamRoleStatements defines the permission policy for the Lambda function
