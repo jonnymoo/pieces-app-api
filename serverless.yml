@@ -108,6 +108,13 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+  changeActivationMessage:
+    # Defines a trigger for when a code activation email is sent
+    handler: changeActivationMessage.main
+    events:
+      - cognitoUserPool:
+          pool: ${self:custom.stage}-user-pool
+          trigger: CustomMessage
 # Create our resources with separate CloudFormation templates
 resources:
   # DynamoDB
