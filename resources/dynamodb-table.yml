@@ -6,12 +6,12 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
-        - AttributeName: piecesId
+        - AttributeName: pieceId
           AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
-        - AttributeName: piecesId
+        - AttributeName: pieceId
           KeyType: RANGE
       # Set the capacity based on the stage
       ProvisionedThroughput:
