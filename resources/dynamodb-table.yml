@@ -2,7 +2,7 @@ Resources:
   PiecesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.tableName}x
+      TableName: ${self:custom.tableName}
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
