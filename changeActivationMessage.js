@@ -1,6 +1,9 @@
-export async function main(event, context) {
+export function main(event, context, callback) {
   // Identify why was this function invoked
-  if (event.triggerSource === "CustomMessage_SignUp") {
+  if (
+    event.triggerSource === "CustomMessage_SignUp" ||
+    event.triggerSource === "CustomMessage_ResendCode"
+  ) {
     // Ensure that your message contains event.request.codeParameter. This is the placeholder for code that will be sent
     const { codeParameter } = event.request;
     const { userName, region } = event;
@@ -11,6 +14,6 @@ export async function main(event, context) {
     event.response.emailSubject = "PieceNotes verification link"; // event.request.codeParameter
     event.response.emailMessage = `Thank you for signing up. ${link}`;
 
-    return success({ status: true });
+    callback(null, event);
   }
 }
