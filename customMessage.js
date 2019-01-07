@@ -1,6 +1,5 @@
 function handler(event, context, callback) {
   // Identify why was this function invoked
-  gibberish;
   if (
     event.triggerSource === "CustomMessage_SignUp" ||
     event.triggerSource === "CustomMessage_ResendCode"
