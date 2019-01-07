@@ -1,4 +1,4 @@
-function handler(event, context, callback) {
+export function handler(event, context, callback) {
   // Identify why was this function invoked
   if (
     event.triggerSource === "CustomMessage_SignUp" ||
