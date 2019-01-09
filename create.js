@@ -14,15 +14,15 @@ export async function main(event, context) {
     //             we will use the identity id as the user id of the authenticated user
     // - 'pieceId': a unique uuid
     // - 'content': parsed from request body
-    // - 'attachment': parsed from request body
     // - 'createdAt': current Unix timestamp
 
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
       pieceId: uuid.v1(),
       content: data.content,
-      attachment: data.attachment,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      LastPractisedAt: Date.now(),
+      PractiseCount: 0
     }
   };
 
