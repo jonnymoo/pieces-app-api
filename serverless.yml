@@ -106,7 +106,7 @@ functions:
     # Defines an HTTP API endpoint that calls the main function in practise.js
     # - path: url path is /pieces/{id}
     # - method: POST request
-    handler: pracise.main
+    handler: practise.main
     events:
       - http:
           path: pieces/{id}
