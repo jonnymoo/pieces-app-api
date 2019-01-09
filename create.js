@@ -21,8 +21,8 @@ export async function main(event, context) {
       pieceId: uuid.v1(),
       content: data.content,
       createdAt: Date.now(),
-      LastPractisedAt: Date.now(),
-      PractiseCount: 0
+      lastPractisedAt: Date.now(),
+      practiseCount: 0
     }
   };
 

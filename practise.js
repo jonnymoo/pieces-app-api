@@ -14,7 +14,7 @@ export async function main(event, context) {
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
     UpdateExpression:
-      "SET LastPractisedAt= :lastPractisedAt, PractiseCount = PractiseCount + 1",
+      "SET lastPractisedAt= :lastPractisedAt, practiseCount = practiseCount + 1",
     ExpressionAttributeValues: {
       ":lastPractisedAt": Date.now()
     },
