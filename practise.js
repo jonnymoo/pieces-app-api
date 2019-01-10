@@ -11,10 +11,8 @@ export async function main(event, context) {
       }
     });
 
-    console.log(piece);
-
     // Only increment if last practise was less that today
-    if (piece.item.lastPractisedAt < new Date().setHours(0, 0, 0, 0)) {
+    if (piece.Item.lastPractisedAt < new Date().setHours(0, 0, 0, 0)) {
       await dynamoDbLib.call("update", {
         TableName: process.env.tableName,
         Key: {
@@ -25,7 +23,7 @@ export async function main(event, context) {
           "SET lastPractisedAt= :lastPractisedAt, practiseCount = :practiseCount",
         ExpressionAttributeValues: {
           ":lastPractisedAt": Date.now(),
-          ":practiseCount": result.item.practiseCount + 1
+          ":practiseCount": result.Item.practiseCount + 1
         },
         ReturnValues: "ALL_NEW"
       });
