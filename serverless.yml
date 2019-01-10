@@ -109,7 +109,7 @@ functions:
     handler: practise.main
     events:
       - http:
-          path: pieces/{id}
+          path: practise/{id}
           method: post
           cors: true
           authorizer: aws_iam
