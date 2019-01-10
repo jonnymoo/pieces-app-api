@@ -11,6 +11,8 @@ export async function main(event, context) {
       }
     });
 
+    console.log(piece);
+
     // Only increment if last practise was less that today
     if (piece.item.lastPractisedAt < new Date().setHours(0, 0, 0, 0)) {
       await dynamoDbLib.call("update", {
