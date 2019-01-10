@@ -12,7 +12,10 @@ export async function main(event, context) {
     });
 
     // Only increment if last practise was less that today
-    if (piece.Item.lastPractisedAt < new Date().setHours(0, 0, 0, 0)) {
+    if (
+      !piece.Item.lastPractisedAt ||
+      piece.Item.lastPractisedAt < new Date().setHours(0, 0, 0, 0)
+    ) {
       await dynamoDbLib.call("update", {
         TableName: process.env.tableName,
         Key: {
