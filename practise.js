@@ -2,30 +2,33 @@ import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
 
 export async function main(event, context) {
-  const params = {
-    TableName: process.env.tableName,
-    // 'Key' defines the partition key and sort key of the item to be updated
-    // - 'userId': Identity Pool identity id of the authenticated user
-    // - 'pieceId': path parameter
-    Key: {
-      userId: event.requestContext.identity.cognitoIdentityId,
-      pieceId: event.pathParameters.id
-    },
-    // 'UpdateExpression' defines the attributes to be updated
-    // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression:
-      "SET lastPractisedAt= :lastPractisedAt, practiseCount = practiseCount + 1",
-    ExpressionAttributeValues: {
-      ":lastPractisedAt": Date.now()
-    },
-    // 'ReturnValues' specifies if and how to return the item's attributes,
-    // where ALL_NEW returns all attributes of the item after the update; you
-    // can inspect 'result' below to see how it works with different settings
-    ReturnValues: "ALL_NEW"
-  };
-
   try {
-    const result = await dynamoDbLib.call("update", params);
+    const piece = await dynamoDbLib.call("get", {
+      TableName: process.env.tableName,
+      Key: {
+        userId: event.requestContext.identity.cognitoIdentityId,
+        pieceId: event.pathParameters.id
+      }
+    });
+
+    // Only increment if last practise was less that today
+    if (piece.item.lastPractisedAt < new Date().setHours(0, 0, 0, 0)) {
+      await dynamoDbLib.call("update", {
+        TableName: process.env.tableName,
+        Key: {
+          userId: event.requestContext.identity.cognitoIdentityId,
+          pieceId: event.pathParameters.id
+        },
+        UpdateExpression:
+          "SET lastPractisedAt= :lastPractisedAt, practiseCount = :practiseCount",
+        ExpressionAttributeValues: {
+          ":lastPractisedAt": Date.now(),
+          ":practiseCount": result.item.practiseCount + 1
+        },
+        ReturnValues: "ALL_NEW"
+      });
+    }
+
     return success({ status: true });
   } catch (e) {
     console.log(e);
