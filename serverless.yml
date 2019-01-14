@@ -113,6 +113,17 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+  resetWeek:
+    # Defines an HTTP API endpoint that calls the main function in resetWeek.js
+    # - path: url path is /resetWeek
+    # - method: POST request
+    handler: resetWeek.main
+    events:
+      - http:
+          path: resetWeek
+          method: post
+          cors: true
+          authorizer: aws_iam
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
     # - path: url path is /pieces/{id}

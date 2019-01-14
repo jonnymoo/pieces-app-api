@@ -27,7 +27,12 @@ export async function main(event, context) {
           "SET lastPractisedAt= :lastPractisedAt, practiseCount = :practiseCount",
         ExpressionAttributeValues: {
           ":lastPractisedAt": Date.now(),
-          ":practiseCount": piece.Item.practiseCount + 1
+          ":practiseCount": piece.Item.practiseCount
+            ? piece.Item.practiseCount + 1
+            : 1,
+          ":weekPractiseCount": piece.Item.weekPractiseCount
+            ? piece.Item.weekPractiseCount + 1
+            : 1
         },
         ReturnValues: "ALL_NEW"
       });
