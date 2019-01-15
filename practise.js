@@ -24,7 +24,7 @@ export async function main(event, context) {
           pieceId: event.pathParameters.id
         },
         UpdateExpression:
-          "SET lastPractisedAt= :lastPractisedAt, practiseCount = :practiseCount",
+          "SET lastPractisedAt= :lastPractisedAt, practiseCount = :practiseCount, weekPractiseCount = :weekPractiseCount",
         ExpressionAttributeValues: {
           ":lastPractisedAt": Date.now(),
           ":practiseCount": piece.Item.practiseCount
