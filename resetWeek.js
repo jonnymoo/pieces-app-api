@@ -2,27 +2,33 @@ import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
 
 export async function main(event, context) {
-  const data = JSON.parse(event.body);
-  const params = {
-    TableName: process.env.tableName,
-    // 'Key' defines the partition key and sort key of the item to be updated
-    // - 'userId': Identity Pool identity id of the authenticated user
-    Key: {
-      userId: event.requestContext.identity.cognitoIdentityId
-    },
-    // 'UpdateExpression' defines the attributes to be updated
-    UpdateExpression: "SET weekPractiseCount = :weekPractiseCount",
-    ExpressionAttributeValues: {
-      ":weekPractiseCount": 0
-    },
-    // 'ReturnValues' specifies if and how to return the item's attributes,
-    // where ALL_NEW returns all attributes of the item after the update; you
-    // can inspect 'result' below to see how it works with different settings
-    ReturnValues: "ALL_NEW"
-  };
-
   try {
-    const result = await dynamoDbLib.call("update", params);
+    // Query for each piece
+    const result = await dynamoDbLib.call("query", {
+      TableName: process.env.tableName,
+      KeyConditionExpression:
+        "userId = :userId, weekPractiseCount = :weekPractiseCount",
+      ExpressionAttributeValues: {
+        ":userId": event.requestContext.identity.cognitoIdentityId,
+        ":weekPractiseCount": 0
+      }
+    });
+
+    // Loop through each one and set the week practise count to 0
+    for (let i = 0; i < result.Items.length; i++) {
+      await dynamoDbLib.call("update", {
+        TableName: process.env.tableName,
+        Key: {
+          userId: event.requestContext.identity.cognitoIdentityId,
+          pieceId: result.Items[i].pieceId
+        },
+        UpdateExpression: "SET weekPractiseCount = :weekPractiseCount",
+        ExpressionAttributeValues: {
+          ":weekPractiseCount": 0
+        },
+        ReturnValues: "ALL_NEW"
+      });
+    }
     return success({ status: true });
   } catch (e) {
     console.log(e);
