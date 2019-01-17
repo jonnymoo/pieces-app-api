@@ -7,7 +7,7 @@ export async function main(event, context) {
     const result = await dynamoDbLib.call("query", {
       TableName: process.env.tableName,
       KeyConditionExpression: "userId = :userId",
-      FilterExpression: "weekPractiseCount = :weekPractiseCount",
+      FilterExpression: "weekPractiseCount > :weekPractiseCount",
       ExpressionAttributeValues: {
         ":userId": event.requestContext.identity.cognitoIdentityId,
         ":weekPractiseCount": 0
