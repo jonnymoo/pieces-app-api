@@ -6,8 +6,8 @@ export async function main(event, context) {
     // Query for each piece
     const result = await dynamoDbLib.call("query", {
       TableName: process.env.tableName,
-      KeyConditionExpression:
-        "userId = :userId, weekPractiseCount = :weekPractiseCount",
+      KeyConditionExpression: "userId = :userId",
+      FilterExpression: "weekPractiseCount = :weekPractiseCount",
       ExpressionAttributeValues: {
         ":userId": event.requestContext.identity.cognitoIdentityId,
         ":weekPractiseCount": 0
