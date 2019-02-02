@@ -39,6 +39,7 @@ provider:
   # under process.env.
   environment:
     tableName: ${self:custom.tableName}
+    userTableName: ${self:custom.userTableName}
     stripeSecretKey: ${self:custom.environment.stripeSecretKey}
 
   iamRoleStatements:
