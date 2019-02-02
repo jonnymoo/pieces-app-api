@@ -151,3 +151,5 @@ resources:
   # Cognito
   - ${file(resources/cognito-user-pool.yml)}
   - ${file(resources/cognito-identity-pool.yml)}
+  # API Gateway errors
+  - ${file(resources/api-gateway-errors.yml)}
