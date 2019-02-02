@@ -38,6 +38,7 @@ export async function main(event, context) {
       versionId: user.versionId
     });
   } catch (e) {
+    console.log(e);
     return failure({ status: false });
   }
 }
