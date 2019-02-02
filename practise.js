@@ -1,16 +1,21 @@
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
+import { updateVersion } from "./libs/user-lib";
 
 export async function main(event, context) {
+  const userId = event.requestContext.identity.cognitoIdentityId;
+
   try {
+    const version = await updateVersion(userId);
+
     const piece = await dynamoDbLib.call("get", {
       TableName: process.env.tableName,
       Key: {
-        userId: event.requestContext.identity.cognitoIdentityId,
+        userId: userId,
         pieceId: event.pathParameters.id
       }
     });
-    console.log(piece);
+
     // Only increment if last practise was less that today
     if (
       !piece.Item.lastPractisedAt ||
@@ -20,7 +25,7 @@ export async function main(event, context) {
       await dynamoDbLib.call("update", {
         TableName: process.env.tableName,
         Key: {
-          userId: event.requestContext.identity.cognitoIdentityId,
+          userId: userId,
           pieceId: event.pathParameters.id
         },
         UpdateExpression:
@@ -38,7 +43,7 @@ export async function main(event, context) {
       });
     }
 
-    return success({ status: true });
+    return success({ version });
   } catch (e) {
     console.log(e);
     return failure({ status: false });
