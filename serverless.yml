@@ -88,7 +88,7 @@ functions:
     handler: list.main
     events:
       - http:
-          path: pieces/{versionId}
+          path: pieceslist/{versionId}
           method: get
           cors: true
           authorizer: aws_iam
