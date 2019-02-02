@@ -1,4 +1,4 @@
-import * as dynamoDbLib from "dynamodb-lib";
+import * as dynamoDbLib from "./dynamodb-lib";
 
 export async function updateVersion(userId) {
   const params = {
