@@ -1,4 +1,5 @@
 import * as dynamoDbLib from "./dynamodb-lib";
+import uuid from "uuid";
 
 export async function updateVersion(userId) {
   const params = {
