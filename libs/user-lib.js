@@ -24,6 +24,7 @@ export async function getUser(userId) {
     }
   });
 
+  console.log(user);
   // No user? Create one
   if (user) {
     return user;
@@ -37,6 +38,7 @@ export async function getUser(userId) {
       TableName: process.env.userTableName,
       Item: newUser
     });
+    console.log(newuser);
 
     return newUser;
   }
