@@ -25,11 +25,14 @@ export async function getUser(userId) {
     }
   });
 
-  console.log(user);
+  console.log("Get User user", user);
+  console.log("Get User user.UserID", user.userId);
   // No user? Create one
   if (user.userId) {
+    console.log("returning user");
     return user;
   } else {
+    console.log("creating new user");
     const newUser = {
       userId: userId,
       name: "stinky",
@@ -39,7 +42,8 @@ export async function getUser(userId) {
       TableName: process.env.userTableName,
       Item: newUser
     });
-    console.log(newUser);
+
+    console.log("Get User newUser", newUser);
 
     return newUser;
   }
