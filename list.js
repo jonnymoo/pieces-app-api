@@ -27,9 +27,6 @@ export async function main(event, context) {
     // we haven't changed so don't bother returning anything
     const user = await getUser(userId);
 
-    console.log("versionId", versionId);
-    console.log("user", user);
-
     if (user.versionId === versionId) {
       return success(null);
     }

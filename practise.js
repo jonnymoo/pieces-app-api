@@ -21,7 +21,6 @@ export async function main(event, context) {
       !piece.Item.lastPractisedAt ||
       piece.Item.lastPractisedAt < new Date().setHours(0, 0, 0, 0)
     ) {
-      console.log("updating");
       await dynamoDbLib.call("update", {
         TableName: process.env.tableName,
         Key: {
