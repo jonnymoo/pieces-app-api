@@ -38,7 +38,7 @@ export async function getUser(userId) {
       TableName: process.env.userTableName,
       Item: newUser
     });
-    console.log(newuser);
+    console.log(newUser);
 
     return newUser;
   }
