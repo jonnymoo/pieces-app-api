@@ -5,7 +5,7 @@ export async function updateVersion(userId) {
   const params = {
     TableName: process.env.userTableName,
     Key: {
-      userId: event.requestContext.identity.cognitoIdentityId
+      userId: userId
     },
     UpdateExpression: "SET versionId = :versionId",
     ExpressionAttributeValues: {
