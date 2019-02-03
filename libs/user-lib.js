@@ -28,9 +28,9 @@ export async function getUser(userId) {
   console.log("Get User user", user);
   console.log("Get User user.UserID", user.userId);
   // No user? Create one
-  if (user.userId) {
+  if (user.Item) {
     console.log("returning user");
-    return user;
+    return user.Item;
   } else {
     console.log("creating new user");
     const newUser = {
