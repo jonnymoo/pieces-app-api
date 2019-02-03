@@ -26,7 +26,7 @@ export async function getUser(userId) {
 
   console.log(user);
   // No user? Create one
-  if (user) {
+  if (user.userId) {
     return user;
   } else {
     const newUser = {
